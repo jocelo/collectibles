@@ -1,0 +1,2 @@
+# collectibles
+List of collectibles
