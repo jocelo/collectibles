@@ -1,0 +1,126 @@
+{
+    "NES": [
+        {
+            "title": "Barbie",
+            "release_year": 1985,
+            "developer": "Nintendo",
+            "price": 10
+        },
+        {
+            "title": "California Games",
+            "release_year": 1986,
+            "developer": "Milton Bradley",
+            "price": 10
+        },
+        {
+            "title": "Mickey Mousecapade",
+            "release_year": 1985,
+            "developer": "Capcom",
+            "price": 19
+        },
+        {
+            "title": "Blades of Steel",
+            "release_year": 1984,
+            "developer": "Konami",
+            "price": 6
+        },
+        {
+            "title": "Golgo 13: Top Secret Episode",
+            "release_year": 1985,
+            "developer": "Vic Tokai",
+            "price": 9
+        },
+        {
+            "title": "Teenage Mutant Ninja Turtles",
+            "release_year": 1985,
+            "developer": "Ultra",
+            "price": 10
+        },
+        {
+            "title": "Bionic Commando",
+            "release_year": 1985,
+            "developer": "Capcom",
+            "price": 11
+        },
+        {
+            "title": "Mickey Mousecapade",
+            "release_year": 1985,
+            "developer": "Nintendo",
+            "price": 7
+        },
+        {
+            "title": "Mega Man 2",
+            "release_year": 1985,
+            "developer": "Capcom",
+            "price": 20
+        },
+        {
+            "title": "Dragon Warrior",
+            "release_year": 1985,
+            "developer": "Nintendo",
+            "price": 12
+        },
+        {
+            "title": "Hudson's Adventure Island",
+            "release_year": 1985,
+            "developer": "Hudson Soft",
+            "price": 11
+        },
+        {
+            "title": "Tiny Toon Adventures",
+            "release_year": 1985,
+            "developer": "Konami",
+            "price": 10
+        }
+    ],
+    "SNES": [
+        {
+            "title": "Super Mario World",
+            "release_year": 1994,
+            "developer": "Nintendo",
+            "price": 12
+        },
+        {
+            "title": "Donkey Kong Country",
+            "release_year": 1995,
+            "developer": "Nintendo",
+            "price": 19
+        },
+        {
+            "title": "Street Fighter II",
+            "release_year": 1995,
+            "developer": "Capcom",
+            "price": 16
+        },
+        {
+            "title": "Batman Forever",
+            "release_year": 1995,
+            "developer": "Akklaim Entertainment",
+            "price": 9
+        }
+    ],
+    "Game Boy Color": [
+        {
+            "title": "The Legend of Zelda: Link's Awakening DX",
+            "release_year": 2006,
+            "developer": "Nintendo",
+            "price": 0
+        }
+    ],
+    "3DS": [
+        {
+            "title": "Animal Crossing: Happy Home Designer",
+            "release_year": 2017,
+            "developer": "Nintendo",
+            "price": 5
+        }
+    ],
+    "N64": [
+        {
+            "title": "Turok",
+            "release_year": 2017,
+            "developer": "Akklaim",
+            "price": 15
+        }
+    ]
+}
