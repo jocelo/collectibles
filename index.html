@@ -15,38 +15,87 @@
 </head>
 <body>
     <h1>Video Game Collection</h1>
+    <input type="text" id="filterInput" placeholder="Filter games by title, developer, or console..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;">
     <div id="games"></div>
     <script>
-        fetch('./videogames.json')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('games');
-                Object.keys(data).forEach(consoleName => {
-                    const games = data[consoleName];
-                    const section = document.createElement('div');
-                    section.className = 'console';
-                    section.innerHTML = `<h2>${consoleName}</h2>`;
-                    const table = document.createElement('table');
-                    table.innerHTML = `
+        // Embedded videogames data
+        const data = {
+            "NES": [
+                { "title": "Barbie", "release_year": 1985, "developer": "Nintendo", "price": 10 },
+                { "title": "California Games", "release_year": 1986, "developer": "Milton Bradley", "price": 10 },
+                { "title": "Mickey Mousecapade", "release_year": 1985, "developer": "Capcom", "price": 19 },
+                { "title": "Blades of Steel", "release_year": 1984, "developer": "Konami", "price": 6 },
+                { "title": "Golgo 13: Top Secret Episode", "release_year": 1985, "developer": "Vic Tokai", "price": 9 },
+                { "title": "Teenage Mutant Ninja Turtles", "release_year": 1985, "developer": "Ultra", "price": 10 },
+                { "title": "Bionic Commando", "release_year": 1985, "developer": "Capcom", "price": 11 },
+                { "title": "Mickey Mousecapade", "release_year": 1985, "developer": "Nintendo", "price": 7 },
+                { "title": "Mega Man 2", "release_year": 1985, "developer": "Capcom", "price": 20 },
+                { "title": "Dragon Warrior", "release_year": 1985, "developer": "Nintendo", "price": 12 },
+                { "title": "Hudson's Adventure Island", "release_year": 1985, "developer": "Hudson Soft", "price": 11 },
+                { "title": "Tiny Toon Adventures", "release_year": 1985, "developer": "Konami", "price": 10 }
+            ],
+            "SNES": [
+                { "title": "Super Mario World", "release_year": 1994, "developer": "Nintendo", "price": 12 },
+                { "title": "Donkey Kong Country", "release_year": 1995, "developer": "Nintendo", "price": 19 },
+                { "title": "Street Fighter II", "release_year": 1995, "developer": "Capcom", "price": 16 },
+                { "title": "Batman Forever", "release_year": 1995, "developer": "Akklaim Entertainment", "price": 9 }
+            ],
+            "Game Boy Color": [
+                { "title": "The Legend of Zelda: Link's Awakening DX", "release_year": 2006, "developer": "Nintendo", "price": 0 }
+            ],
+            "3DS": [
+                { "title": "Animal Crossing: Happy Home Designer", "release_year": 2017, "developer": "Nintendo", "price": 5 }
+            ],
+            "N64": [
+                { "title": "Turok", "release_year": 2017, "developer": "Akklaim", "price": 15 }
+            ]
+        };
+
+        function renderGames(filter = "") {
+            const container = document.getElementById('games');
+            container.innerHTML = '';
+            const filterLower = filter.trim().toLowerCase();
+            Object.keys(data).forEach(consoleName => {
+                // Sort games by title
+                let games = data[consoleName].slice().sort((a, b) => a.title.localeCompare(b.title));
+                if (filterLower) {
+                    games = games.filter(game =>
+                        game.title.toLowerCase().includes(filterLower) ||
+                        game.developer.toLowerCase().includes(filterLower) ||
+                        consoleName.toLowerCase().includes(filterLower)
+                    );
+                }
+                if (games.length === 0) return;
+                const section = document.createElement('div');
+                section.className = 'console';
+                section.innerHTML = `<h2>${consoleName}</h2>`;
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Title</th>
+                        <th>Release Year</th>
+                        <th>Developer</th>
+                        <th>Price</th>
+                    </tr>
+                    ${games.map(game => `
                         <tr>
-                            <th>Title</th>
-                            <th>Release Year</th>
-                            <th>Developer</th>
-                            <th>Price</th>
+                            <td>${game.title}</td>
+                            <td>${game.release_year}</td>
+                            <td>${game.developer}</td>
+                            <td>$ ${game.price}</td>
                         </tr>
-                        ${games.map(game => `
-                            <tr>
-                                <td>${game.title}</td>
-                                <td>${game.release_year}</td>
-                                <td>${game.developer}</td>
-                                <td>$${game.price}</td>
-                            </tr>
-                        `).join('')}
-                    `;
-                    section.appendChild(table);
-                    container.appendChild(section);
-                });
+                    `).join('')}
+                `;
+                section.appendChild(table);
+                container.appendChild(section);
             });
+        }
+
+        document.getElementById('filterInput').addEventListener('input', function() {
+            renderGames(this.value);
+        });
+
+        renderGames();
     </script>
 </body>
 </html>
