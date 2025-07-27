@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Game Collection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f8f8; }
+        h1 { color: #333; }
+        .console { margin-bottom: 2em; }
+        table { border-collapse: collapse; width: 100%; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Video Game Collection</h1>
+    <div id="games"></div>
+    <script>
+        fetch('./videogames.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('games');
+                Object.keys(data).forEach(consoleName => {
+                    const games = data[consoleName];
+                    const section = document.createElement('div');
+                    section.className = 'console';
+                    section.innerHTML = `<h2>${consoleName}</h2>`;
+                    const table = document.createElement('table');
+                    table.innerHTML = `
+                        <tr>
+                            <th>Title</th>
+                            <th>Release Year</th>
+                            <th>Developer</th>
+                            <th>Price</th>
+                        </tr>
+                        ${games.map(game => `
+                            <tr>
+                                <td>${game.title}</td>
+                                <td>${game.release_year}</td>
+                                <td>${game.developer}</td>
+                                <td>$${game.price}</td>
+                            </tr>
+                        `).join('')}
+                    `;
+                    section.appendChild(table);
+                    container.appendChild(section);
+                });
+            });
+    </script>
+</body>
+</html>
