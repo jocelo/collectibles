@@ -1,0 +1,23 @@
+# macOS system files
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Node.js dependencies
+node_modules/
+
+# Python virtual environments
+venv/
+.env/
+__pycache__/
+
+# Logs
+*.log
+
+# OS generated files
+Thumbs.db
+
+# Misc
+*.swp
+*.swo
