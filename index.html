@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <h1>Woonza & Jocelo Video Game Collection</h1>
+    <h1>Woonza & Jocelo's Video Game Collection</h1>
     <input type="text" id="filterInput" placeholder="Filter games by title, developer, or console..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;">
     <div id="games"></div>
     <script>
@@ -28,7 +28,6 @@
                 { "title": "Golgo 13: Top Secret Episode", "release_year": 1985, "developer": "Vic Tokai", "price": 9 },
                 { "title": "Teenage Mutant Ninja Turtles", "release_year": 1985, "developer": "Ultra", "price": 10 },
                 { "title": "Bionic Commando", "release_year": 1985, "developer": "Capcom", "price": 11 },
-                { "title": "Mickey Mousecapade", "release_year": 1985, "developer": "Nintendo", "price": 7 },
                 { "title": "Mega Man 2", "release_year": 1985, "developer": "Capcom", "price": 20 },
                 { "title": "Dragon Warrior", "release_year": 1985, "developer": "Nintendo", "price": 12 },
                 { "title": "Hudson's Adventure Island", "release_year": 1985, "developer": "Hudson Soft", "price": 11 },
@@ -40,7 +39,7 @@
                 { "title": "Street Fighter II", "release_year": 1995, "developer": "Capcom", "price": 16 },
                 { "title": "Batman Forever", "release_year": 1995, "developer": "Akklaim Entertainment", "price": 9 }
             ],
-            "Game Boy Color": [
+            "GameBoy Color": [
                 { "title": "The Legend of Zelda: Link's Awakening DX", "release_year": 2006, "developer": "Nintendo", "price": 0 }
             ],
             "3DS": [
@@ -57,6 +56,10 @@
             const filterLower = filter.trim().toLowerCase();
             Object.keys(data).forEach(consoleName => {
                 // Sort games by title
+
+                let imageName = consoleName.toLowerCase();
+                imageName = imageName.replace(/\s+/g, '_');
+
                 let games = data[consoleName].slice().sort((a, b) => a.title.localeCompare(b.title));
                 if (filterLower) {
                     games = games.filter(game =>
@@ -68,7 +71,8 @@
                 if (games.length === 0) return;
                 const section = document.createElement('div');
                 section.className = 'console';
-                section.innerHTML = `<h2>${consoleName}</h2>`;
+                section.innerHTML = `<h2><img src="assets/icons/${imageName}.png" alt="${consoleName} icon" style="height:1em;vertical-align:middle;margin-right:0.5em;">${consoleName} <small>(${games.length} titles)</small></h2>`;
+                // section.innerHTML = `<h2>${consoleName}</h2>`;
                 const table = document.createElement('table');
                 table.innerHTML = `
                     <tr>
