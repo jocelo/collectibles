@@ -93,14 +93,16 @@
                         <th>Developer</th>
                         <th>Price</th>
                     </tr>
-                    ${games.map(game => `
+                    ${games.map(game => {
+                        let gameTitle = game.title + (game['format'] === 'Digital' ? ' (Digital)' : '');
+                        return `
                         <tr>
-                            <td>${game.title}</td>
+                            <td>${gameTitle}</td>
                             <td>${game.release_year}</td>
                             <td>${game.developer}</td>
                             <td>$ ${game.price}</td>
-                        </tr>
-                    `).join('')}
+                        </tr>`;
+                    }).join('')}
                 `;
                 section.appendChild(table);
                 container.appendChild(section);
