@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W+J Video Game Collection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f8f8; }
+        h1 { color: #333; }
+        .console { margin-bottom: 2em; }
+        table { border-collapse: collapse; width: 100%; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+        li {
+            display: inline;
+            margin-right: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Woonza & Jocelo's Video Game Collection</h1>
+    <input type="text" id="filterInput" placeholder="Filter games by title, developer, or console..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;">
+    <div id="games"></div>
+    <ul>
+        <li><a href="index.html">Back to Main</a></li>
+    </ul>
+    <script>
+        // Embedded videogames data
+        const data = {
+            "NES": [
+                { "title": "Barbie", "release_year": 1985, "developer": "Nintendo", "price": 10, "format": "Physical" },
+                { "title": "California Games", "release_year": 1986, "developer": "Milton Bradley", "price": 10, "format": "Physical" },
+                { "title": "Mickey Mousecapade", "release_year": 1985, "developer": "Capcom", "price": 19, "format": "Physical" },
+                { "title": "Blades of Steel", "release_year": 1984, "developer": "Konami", "price": 6, "format": "Physical" },
+                { "title": "Golgo 13: Top Secret Episode", "release_year": 1985, "developer": "Vic Tokai", "price": 9, "format": "Physical" },
+                { "title": "Teenage Mutant Ninja Turtles", "release_year": 1985, "developer": "Ultra", "price": 10, "format": "Physical" },
+                { "title": "Bionic Commando", "release_year": 1985, "developer": "Capcom", "price": 11, "format": "Physical" },
+                { "title": "Mega Man 2", "release_year": 1985, "developer": "Capcom", "price": 20, "format": "Physical" },
+                { "title": "Dragon Warrior", "release_year": 1985, "developer": "Nintendo", "price": 12, "format": "Physical" },
+                { "title": "Hudson's Adventure Island", "release_year": 1985, "developer": "Hudson Soft", "price": 11, "format": "Physical" },
+                { "title": "Tiny Toon Adventures", "release_year": 1985, "developer": "Konami", "price": 10, "format": "Physical" }
+            ],
+            "SNES": [
+                { "title": "Super Mario World", "release_year": 1994, "developer": "Nintendo", "price": 12, "format": "Physical" },
+                { "title": "Donkey Kong Country", "release_year": 1995, "developer": "Nintendo", "price": 19, "format": "Physical" },
+                { "title": "Street Fighter II", "release_year": 1995, "developer": "Capcom", "price": 16, "format": "Physical" },
+                { "title": "Batman Forever", "release_year": 1995, "developer": "Akklaim Entertainment", "price": 9, "format": "Physical" }
+            ],
+            "GameBoy Color": [
+                { "title": "The Legend of Zelda: Link's Awakening DX", "release_year": 2006, "developer": "Nintendo", "price": 0, "format": "Physical" }
+            ],
+            "3DS": [
+                { "title": "Animal Crossing: Happy Home Designer", "release_year": 2017, "developer": "Nintendo", "price": 5, "format": "Physical" }
+            ],
+            "N64": [
+                { "title": "Turok", "release_year": 2017, "developer": "Akklaim", "price": 15, "format": "Physical" }
+            ],
+            "Sega Genesis": [
+                { "title": "Animaniacs", "release_year": 1994, "developer": "Konami", "price": 15, "format": "Physical" }
+            ],
+            "Nintendo Switch": [
+                { "title": "Dragon Quest I, II, III", "release_year": 2017, "developer": "Square Enix", "price": 35, "format": "Physical" },
+                { "title": "Super Mario Party Jamboree", "release_year": 2024, "developer": "Nintendo", "price": 60, "format": "Physical" },
+                { "title": "Mario Party Superstars", "release_year": 2021, "developer": "Nintendo", "price": 60, "format": "Physical" }
+            ],
+            "Nintendo Switch 2": [
+                { "title": "Donkey Kong Bananza", "release_year": 2025, "developer": "Nintendo", "price": 69.99, "format": "Physical" },
+                { "title": "Mario Kart World", "release_year": 2025, "developer": "Nintendo", "price": 0, "format": "Digital" }
+            ]
+        };
+
+        function renderGames(filter = "") {
+            const container = document.getElementById('games');
+            container.innerHTML = '';
+            const filterLower = filter.trim().toLowerCase();
+            Object.keys(data).forEach(consoleName => {
+                // Sort games by title
+
+                let imageName = consoleName.toLowerCase();
+                imageName = imageName.replace(/\s+/g, '_');
+
+                let games = data[consoleName].slice().sort((a, b) => a.title.localeCompare(b.title));
+                if (filterLower) {
+                    games = games.filter(game =>
+                        game.title.toLowerCase().includes(filterLower) ||
+                        game.developer.toLowerCase().includes(filterLower) ||
+                        consoleName.toLowerCase().includes(filterLower)
+                    );
+                }
+                if (games.length === 0) return;
+                const section = document.createElement('div');
+                section.className = 'console';
+                section.innerHTML = `<h2><img src="assets/icons/${imageName}.png" alt="${consoleName} icon" style="height:1em;vertical-align:middle;margin-right:0.5em;">${consoleName} <small>(${games.length} titles)</small></h2>`;
+                // section.innerHTML = `<h2>${consoleName}</h2>`;
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Title</th>
+                        <th>Release Year</th>
+                        <th>Developer</th>
+                        <th>Price</th>
+                    </tr>
+                    ${games.map(game => {
+                        let gameTitle = game.title + (game['format'] === 'Digital' ? ' (Digital)' : '');
+                        return `
+                        <tr>
+                            <td>${gameTitle}</td>
+                            <td>${game.release_year}</td>
+                            <td>${game.developer}</td>
+                            <td>$ ${game.price}</td>
+                        </tr>`;
+                    }).join('')}
+                `;
+                section.appendChild(table);
+                container.appendChild(section);
+            });
+        }
+
+        document.getElementById('filterInput').addEventListener('input', function() {
+            renderGames(this.value);
+        });
+
+        renderGames();
+    </script>
+</body>
+</html>
