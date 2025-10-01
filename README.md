@@ -1,4 +1,4 @@
-# collectibles
+# 💅 Woonza and 🧑‍💻 Jocelo's collectibles
 
 List of all our collectibles!
 
