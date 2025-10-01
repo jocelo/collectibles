@@ -17,9 +17,157 @@
 <body>
     <div class="container">
         <h1>My Comics Collection</h1>
+        <!-- <input type="text" id="filterInput" placeholder="Filter comics by title or published..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;"> -->
+        <div id="comics"></div>
         <ul>
             <li><a href="index.html">Back to Main</a></li>
         </ul>
     </div>
+    <script>
+        const data = [{
+            'title': 'Batman Noir: The long Halloween',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman Unwrapped: Death in the Family',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman/Catwoman: The wedding album',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Justice League: Trinity War',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman/Superman: Cross World',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman: The Cort of Owls',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman: The City of Owls',
+            'issue': 2,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Batman: Night of the Owls',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'The Joker: Endgame',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Convergence',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'The death of superman',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Green Lantern: No Fear',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        },{
+            'title': 'Robin War',
+            'issue': 1,
+            'year': 2020,
+            'publisher': 'DC Comics',
+            'price': 0,
+            'format': 'Physical'
+        }];
+
+        function renderComics(filter = "") {
+            const container = document.getElementById('comics');
+            container.innerHTML = '';
+            const filterLower = filter.trim().toLowerCase();
+
+            const table = document.createElement('table');
+            table.innerHTML = `
+                <tr>
+                    <th>Number</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Format</th>
+                    <th>Price</th>
+                </tr>
+            `;
+            
+            data.forEach(comic => {
+                // Sort comics by title
+                console.log(comic);
+                // let imageName = consoleName.toLowerCase();
+                // imageName = imageName.replace(/\s+/g, '_');
+
+                // let games = data[consoleName].slice().sort((a, b) => a.title.localeCompare(b.title));
+                // if (filterLower) {
+                //     games = games.filter(game =>
+                //         game.title.toLowerCase().includes(filterLower) ||
+                //         game.developer.toLowerCase().includes(filterLower) ||
+                //         consoleName.toLowerCase().includes(filterLower)
+                //     );
+                // }
+                if (comics.length === 0) return;
+                const section = document.createElement('div');
+                // section.className = 'console';
+                table.innerHTML += `
+                        <tr>
+                            <td>${comic.issue}</td>
+                            <td>${comic.title}</td>
+                            <td><img src="assets/icons/dc-comics.png" /></td>
+                            <td>${comic.format}</td>
+                            <td>${comic.price}</td>
+                        </tr>`
+                section.appendChild(table);
+                container.appendChild(section);
+            });
+        }
+
+        // document.getElementById('filterInput').addEventListener('input', function() {
+        //     renderComics(this.value);
+        // });
+
+        renderComics();
+    </script>
 </body>
 </html>
