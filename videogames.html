@@ -27,6 +27,7 @@
 <body>
     <h1>Woonza & Jocelo's Video Game Collection</h1>
     <input type="text" id="filterInput" placeholder="Filter games by title, developer, or console..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;">
+    <span id="libraryStats">Loading library stats...</span>
     <div id="games"></div>
     <ul>
         <li><a href="index.html">Back to Main</a></li>
@@ -192,6 +193,17 @@
                 { "title": "Final Fantasy VII Remake", "release_year": 2020, "developer": "Square Enix", "publisher": "Square Enix", "price": 45, "format": "Physical" },
             ],
         };
+
+        // Compute total platforms and games, update the stats label
+        (function updateLibraryStats() {
+            const platformKeys = Object.keys(data);
+            const totalPlatforms = platformKeys.length;
+            const totalGames = platformKeys.reduce((sum, k) => sum + (data[k] ? data[k].length : 0), 0);
+            const statsEl = document.getElementById('libraryStats');
+            if (statsEl) {
+                statsEl.textContent = `> Library: ${totalGames} games across ${totalPlatforms} systems.`;
+            }
+        })();
 
         function renderGames(filter = "") {
             const container = document.getElementById('games');
