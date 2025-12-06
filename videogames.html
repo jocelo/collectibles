@@ -201,7 +201,7 @@
             const totalGames = platformKeys.reduce((sum, k) => sum + (data[k] ? data[k].length : 0), 0);
             const statsEl = document.getElementById('libraryStats');
             if (statsEl) {
-                statsEl.textContent = `> Library: ${totalGames} games across ${totalPlatforms} systems.`;
+                statsEl.textContent = `< Total of ${totalGames} games across ${totalPlatforms} systems >`;
             }
         })();
 
