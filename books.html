@@ -46,18 +46,17 @@
         <ul>
             <li><a href="index.html">Back to Main</a></li>
         </ul>
-        <div class="placeholder-img">🎮</div>
+        <div class="placeholder-img">📚</div>
         <h1>My Books Collection</h1>
-        <p>This page is a placeholder for my Books collection.<br>
-        Check back soon for updates!</p>
-        <ul>
-            <li>Zelda Encyclopedia</li>
-            <li>The Legend of Zelda: Tears of the Kingdom.The complete official guide Collector's Edition</li>
-            <li>Final Fantasy XII</li>
-        </ul>
+        <p>This page lists the books in the collection. Use the search box to filter.</p>
+
+        <input type="text" id="filterInput" placeholder="Filter books by title, author, or publisher..." style="width: 100%; max-width: 420px; padding: 8px; margin: 1em 0; font-size: 1em;">
+        <div id="booksStats" style="margin-bottom:0.75em;color:#555;">Loading...</div>
+        <div id="booksList"></div>
+
     <script>
-        // Embedded videogames data
-        const data = [
+        // Embedded books data
+        const booksData = [
             { title: "The Da Vinci Code", author: ["Dan Brown"], edition: "Special Illustrated Edition", publish_date: 2000, publisher: "" },
             { title: "Literatura Hispanoamericana", author: ["Anderson Imbert Florit"], edition: "", publish_date: 2000 },
             { title: "Cosmos", author: ["Carl Sagan"], edition: "", publish_date: 2000 },
@@ -126,9 +125,77 @@
             { title: "Rich Dad, Poor Dad", author: ["Robert Kiyosaki"], edition: "", publish_date: 2000, publisher: "" },
             { title: "Still Alice", author: ["Lista Genova"], edition: "", publish_date: 2000, publisher: "" },
             { title: "The Bro Code", author: ["Barney Stinson"], edition: "", publish_date: 2000, publisher: "" },
-            { title: "Valiente Mundo Nuevo", author: ["Carlos Fuentes"], edition: "", publish_date: 2000, publisher: "" },
+            { title: "Valiente Mundo Nuevo", author: ["Carlos Fuentes"], edition: "", publish_date: 2000, publisher: "" }
         ];
+
+        function formatAuthors(a) {
+            if (!a) return 'Unknown';
+            if (Array.isArray(a)) return a.filter(Boolean).join(', ') || 'Unknown';
+            return a;
+        }
+
+        function renderBooks(filter = '') {
+            const container = document.getElementById('booksList');
+            container.innerHTML = '';
+            const filterLower = String(filter).trim().toLowerCase();
+
+            // Sort by title
+            let books = booksData.slice().sort((x, y) => (x.title || '').localeCompare(y.title || ''));
+            const total = books.length;
+
+            if (filterLower) {
+                books = books.filter(b => {
+                    const title = (b.title || '').toLowerCase();
+                    const publisher = (b.publisher || '').toLowerCase();
+                    const authors = (formatAuthors(b.author) || '').toLowerCase();
+                    const idioma = (b.idioma || '').toLowerCase();
+                    return title.includes(filterLower) || publisher.includes(filterLower) || authors.includes(filterLower) || idioma.includes(filterLower);
+                });
+            }
+
+            const shown = books.length;
+            const statsEl = document.getElementById('booksStats');
+            if (statsEl) statsEl.textContent = `Showing ${shown} of ${total} books`;
+
+            if (books.length === 0) {
+                container.innerHTML = '<p style="color:#666;">No books match your search.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.style.width = '100%';
+            table.style.borderCollapse = 'collapse';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Title</th>
+                        <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Author(s)</th>
+                        <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Year</th>
+                        <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Publisher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${books.map(b => `
+                        <tr>
+                            <td style="border:1px solid #ccc;padding:8px;">${b.title || 'Untitled'}</td>
+                            <td style="border:1px solid #ccc;padding:8px;">${formatAuthors(b.author)}</td>
+                            <td style="border:1px solid #ccc;padding:8px;">${b.publish_date || 'N/A'}</td>
+                            <td style="border:1px solid #ccc;padding:8px;">${b.publisher || 'N/A'}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+
+            container.appendChild(table);
+        }
+
+        document.getElementById('filterInput').addEventListener('input', function() {
+            renderBooks(this.value);
+        });
+
+        // initial render
+        renderBooks();
     </script>
     </div>
-</body>
-</html>
+    </body>
+    </html>

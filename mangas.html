@@ -18,36 +18,93 @@
 <body>
     <div class="container">
         <h1>My Mangas Collection</h1>
-        <ul>
-            <li>Zelda Twilight Princess (Complete Box Set)</li>
-            <li>Demon Slayer (Complete Box Set)</li>
-            <li>Mario</li>
-            <li>Kirby</li>
-        </ul>
-        <ul>
+
+        <input type="text" id="mangaFilterInput" placeholder="Filter mangas by title, author, or publisher..." style="width: 100%; max-width: 420px; padding: 8px; margin: 1em 0; font-size: 1em;">
+        <div id="mangasStats" style="margin-bottom:0.75em;color:#555;">Loading...</div>
+        <div id="mangasList"></div>
+
+        <ul style="margin-top:1.25em;">
             <li><a href="index.html">Back to Main</a></li>
         </ul>
+
         <script>
-            const data = [
+            // Embedded mangas data
+            const mangaData = [
                 { title: "Zelda Twilight Princess (Complete Box Set)", author: "Akira Himekawa", volumes: 5, publisher: "VIZ Media", price: 50 },
                 { title: "Demon Slayer (Complete Box Set)", author: "Koyoharu Gotouge", volumes: 23, publisher: "VIZ Media", price: 100 },
                 { title: "Mario", author: "Various", volumes: 10, publisher: "VIZ Media", price: 40 },
                 { title: "Kirby", author: "Various", volumes: 8, publisher: "VIZ Media", price: 35 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 1, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 2, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 3, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 4, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 5, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 6, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 12, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 19, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 20, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 31, publisher: "Panini Manga", price: 0 },
-                { title: "Dragon Ball", author: "Akira Toriyama", language: "Español", volumes: 34, publisher: "Panini Manga", price: 0 },
-                { title: "One-Punch Man", author: "Yusuke Murata", language: "Español", volumes: 1, publisher: "Panini Manga", price: 0 },
-                { title: "One-Punch Man", author: "Yusuke Murata", language: "Español", volumes: 2, publisher: "Panini Manga", price: 0 },
-                { title: "One-Punch Man", author: "Yusuke Murata", language: "Español", volumes: 7, publisher: "Panini Manga", price: 0 }
-            ]
+                { title: "Dragon Ball Vol.1", author: "Akira Toriyama", language: "Español", volumes: 1, publisher: "Panini Manga", price: 0 },
+                { title: "Dragon Ball Vol.2", author: "Akira Toriyama", language: "Español", volumes: 2, publisher: "Panini Manga", price: 0 },
+                { title: "Dragon Ball Vol.3", author: "Akira Toriyama", language: "Español", volumes: 3, publisher: "Panini Manga", price: 0 },
+                { title: "One-Punch Man Vol.1", author: "Yusuke Murata", language: "Español", volumes: 1, publisher: "Panini Manga", price: 0 },
+                { title: "One-Punch Man Vol.2", author: "Yusuke Murata", language: "Español", volumes: 2, publisher: "Panini Manga", price: 0 },
+                { title: "One-Punch Man Vol.7", author: "Yusuke Murata", language: "Español", volumes: 7, publisher: "Panini Manga", price: 0 }
+            ];
+
+            function renderMangas(filter = '') {
+                const container = document.getElementById('mangasList');
+                container.innerHTML = '';
+                const filterLower = String(filter || '').trim().toLowerCase();
+
+                // sort by title
+                let items = mangaData.slice().sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+                const total = items.length;
+
+                if (filterLower) {
+                    items = items.filter(m => {
+                        const title = (m.title || '').toLowerCase();
+                        const author = (m.author || '').toLowerCase();
+                        const publisher = (m.publisher || '').toLowerCase();
+                        const language = (m.language || m.idioma || '').toLowerCase();
+                        return title.includes(filterLower) || author.includes(filterLower) || publisher.includes(filterLower) || language.includes(filterLower);
+                    });
+                }
+
+                const shown = items.length;
+                const statsEl = document.getElementById('mangasStats');
+                if (statsEl) statsEl.textContent = `Showing ${shown} of ${total} manga volumes`;
+
+                if (items.length === 0) {
+                    container.innerHTML = '<p style="color:#666;">No mangas match your search.</p>';
+                    return;
+                }
+
+                const table = document.createElement('table');
+                table.style.width = '100%';
+                table.style.borderCollapse = 'collapse';
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Title</th>
+                            <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Author</th>
+                            <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Volumes</th>
+                            <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Publisher</th>
+                            <th style="border:1px solid #ccc;padding:8px;background:#f0f0f0;text-align:left;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(m => `
+                            <tr>
+                                <td style="border:1px solid #ccc;padding:8px;">${m.title || 'Untitled'}</td>
+                                <td style="border:1px solid #ccc;padding:8px;">${m.author || 'Unknown'}</td>
+                                <td style="border:1px solid #ccc;padding:8px;">${m.volumes || 'N/A'}</td>
+                                <td style="border:1px solid #ccc;padding:8px;">${m.publisher || 'N/A'}</td>
+                                <td style="border:1px solid #ccc;padding:8px;">${m.price != null ? '$' + m.price : 'N/A'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+
+                container.appendChild(table);
+            }
+
+            document.getElementById('mangaFilterInput').addEventListener('input', function() {
+                renderMangas(this.value);
+            });
+
+            // initial render
+            renderMangas();
         </script>
     </div>
 </body>
