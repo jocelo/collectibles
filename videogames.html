@@ -22,12 +22,57 @@
         a:hover {
             text-decoration: underline;
         }
+        .games-by-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.25em;
+        }
+        .group-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #d7d7d7;
+            border-radius: 999px;
+            background: #fff;
+            font-size: 0.92em;
+        }
+        .group-pill img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .group-pill .count {
+            font-weight: 700;
+            color: #2f2f2f;
+        }
+        .group-pill-link {
+            color: inherit;
+            text-decoration: none;
+        }
+        .group-pill-link:hover {
+            text-decoration: none;
+        }
+        .console-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .console-top-link {
+            font-size: 0.75em;
+            font-weight: normal;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
-    <h1>Woonza & Jocelo's Video Game Collection</h1>
+    <h1 id="top">Woonza & Jocelo's Video Game Collection</h1>
     <input type="text" id="filterInput" placeholder="Filter games by title, developer, or console..." style="width: 100%; max-width: 400px; padding: 8px; margin-bottom: 1.5em; font-size: 1em;">
     <span id="libraryStats">Loading library stats...</span>
+    <div id="games-by-group" class="games-by-group">
+    </div>
     <div id="games"></div>
     <ul>
         <li><a href="index.html">Back to Main</a></li>
@@ -213,6 +258,37 @@
             }
         })();
 
+        function renderGamesByGroup() {
+            const groupContainer = document.getElementById('games-by-group');
+            if (!groupContainer) return;
+
+            const sortedConsoles = Object.keys(data).sort((a, b) => {
+                const countA = data[a] ? data[a].length : 0;
+                const countB = data[b] ? data[b].length : 0;
+                if (countB !== countA) return countB - countA;
+                return a.localeCompare(b);
+            });
+            groupContainer.innerHTML = sortedConsoles.map(consoleName => {
+                let imageName = consoleName.toLowerCase().replace(/\s+/g, '_');
+                const sectionId = getConsoleSectionId(consoleName);
+                const totalForConsole = data[consoleName] ? data[consoleName].length : 0;
+
+                return `
+                    <a class="group-pill-link" href="#${sectionId}" title="Go to ${consoleName}">
+                        <div class="group-pill" title="${consoleName}">
+                            <img src="assets/icons/${imageName}.png" alt="${consoleName} icon" onerror="this.style.display='none'">
+                            <span>${consoleName}</span>
+                            <span class="count">${totalForConsole}</span>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function getConsoleSectionId(consoleName) {
+            return `console-${consoleName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        }
+
         function renderGames(filter = "") {
             const container = document.getElementById('games');
             container.innerHTML = '';
@@ -234,7 +310,13 @@
                 if (games.length === 0) return;
                 const section = document.createElement('div');
                 section.className = 'console';
-                section.innerHTML = `<h2><img src="assets/icons/${imageName}.png" alt="${consoleName} icon" style="height:1em;vertical-align:middle;margin-right:0.5em;">${consoleName} <small>(${games.length} titles)</small></h2>`;
+                section.id = getConsoleSectionId(consoleName);
+                section.innerHTML = `
+                    <h2 class="console-header">
+                        <span><img src="assets/icons/${imageName}.png" alt="${consoleName} icon" style="height:1em;vertical-align:middle;margin-right:0.5em;">${consoleName} <small>(${games.length} titles)</small></span>
+                        <a class="console-top-link" href="#top">Top</a>
+                    </h2>
+                `;
                 // section.innerHTML = `<h2>${consoleName}</h2>`;
                 const table = document.createElement('table');
                 table.innerHTML = `
@@ -269,6 +351,7 @@
             renderGames(this.value);
         });
 
+        renderGamesByGroup();
         renderGames();
     </script>
 </body>
