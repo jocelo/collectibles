@@ -80,6 +80,13 @@
     <script>
         // Embedded videogames data
         const data = {
+            "Game Boy": [
+                { "title": "Tom & Jerry", "release_year": 1999, "developer": "Morning Star Multimedia, Inc.", "publisher": "Warner Bros. Interactive Entertainment", "price": 10, "format": "Physical", "cover": "Tom_Jerry_.webp" },
+                { "title": "Looney Tunes", "release_year": 1992, "developer": "Sunsoft", "publisher": "Sunsoft", "price": 10, "format": "Physical", "cover": "Looney_Tunes_Game_Boy.png" }
+            ],
+            "Game Boy Color": [
+                { "title": "Game & Watch Gallery 3", "release_year": 1999, "developer": "Nintendo R&D1", "publisher": "", "price": 10, "format": "Physical", "cover": "Game_and_Watch_Gallery_3.webp" }
+            ],
             "NES": [
                 { "title": "Barbie", "release_year": 1985, "developer": "Nintendo", "price": 10, "format": "Physical", "cover": "barbie.jpg" },
                 { "title": "California Games", "release_year": 1986, "developer": "Milton Bradley", "price": 10, "format": "Physical", "cover": "california-games.png" },
@@ -113,7 +120,6 @@
                 { "title": "Just Dance: Disney", "release_year": 2019, "developer": "Ubisoft", "price": 15, "format": "Physical", "cover": "just_dance_disney_party.jpg" },
                 { "title": "Super Paper Mario", "release_year": 2007, "developer": "Intelligent Systems", "price": 15, "format": "Physical", "cover": "super-paper-mario.jpeg" },
                 { "title": "Disney Tangled", "release_year": 2019, "developer": "Ubisoft", "price": 15, "format": "Physical", "cover": "tangled.jpg" },
-                { "title": "Disney Pixar Toy Story", "release_year": 2011, "developer": "Disney", "price": 15, "format": "Physical" },
                 { "title": "Wii fit plus", "release_year": 2018, "developer": "Nintendo", "price": 15, "format": "Physical", "cover": "wii_fit_plus.jpg" },
                 { "title": "Dragon Quest Swords: The masked Queen and the Tower of Mirrors", "release_year": 2007, "developer": "Square Enix", "price": 16, "format": "Physical", "cover": "Dragon_Quest_Swords.jpg" },
                 { "title": "Samba de Amigo", "release_year": 2008, "developer": "Sega", "price": 12, "format": "Physical", "cover": "Samba_de_Amigo.webp" },
@@ -133,23 +139,23 @@
                 { "title": "Rayman Origins", "release_year": 2000, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "rayman-origins.jpg" },
                 { "title": "Sonic and the Secret Rings", "release_year": 2000, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "sonic-and-the-secter-rings.webp" },
                 { "title": "Rabbids Go Home", "release_year": 2000, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "rabbids-go-home-nintendo.webp" },
-                { "title": "Batman The Brave and the Bold The Videogame", "release_year": 2000, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
+                { "title": "Batman The Brave and the Bold The Videogame", "release_year": 2000, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "batman-the-brave-and-the-bold.jpg" },
             ],
             "Wii U": [
-                { "title": "Guitar Hero Live", "release_year": 2015, "developer": "Free Style Games", "publisher": "Activision", "price": 10, "format": "Physical" },
-                { "title": "Assassin's Creed III", "release_year": 2012, "developer": "Ubisoft", "publisher": "Ubisoft", "price": 10, "format": "Physical" },
+                { "title": "Guitar Hero Live", "release_year": 2015, "developer": "Free Style Games", "publisher": "Activision", "price": 10, "format": "Physical", "cover": "Guitar-Hero-Live.jpg" },
+                { "title": "Assassin's Creed III", "release_year": 2012, "developer": "Ubisoft", "publisher": "Ubisoft", "price": 10, "format": "Physical", "cover": "Assassinscreed3wiiucover.webp" },
                 { "title": "Super Mario Maker", "release_year": 2015, "release_date": "09-11-2015", "developer": "Nintendo", "publisher": "Nintendo", "price": 0, "format": "Physical", "cover": "super-mario-maker.jpg" },
-                { "title": "The Legend of Zelda: Breath of the Wild", "release_year": 2017, "release_date": "03-03-2017", "developer": "Nintendo", "publisher": "Nintendo", "price": 0, "format": "Physical" },
-                { "title": "The Legend of Zelda: The Wind Waker", "release_year": 2012, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "The Legend of Zelda: Twilight Princess HD", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Hyrule Warriors", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "New Super Mario Bros U", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Super Mario 3D World", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Captain Toad: Treasure Tracker", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Yoshi's Woolly World", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Pikmin 3", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Kirby and the Rainbow Course", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
-                { "title": "Mass Effect 3: Special Edition", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical" },
+                { "title": "The Legend of Zelda: Breath of the Wild", "release_year": 2017, "release_date": "03-03-2017", "developer": "Nintendo", "publisher": "Nintendo", "price": 0, "format": "Physical", "cover": "the-legend-of-zelda-breath-of-the-wild.jpg" },
+                { "title": "The Legend of Zelda: The Wind Waker", "release_year": 2012, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "wind-waker.jpg" },
+                { "title": "The Legend of Zelda: Twilight Princess HD", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "twilight-princess.jpeg" },
+                { "title": "Hyrule Warriors", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "hyrule-warriors.webp" },
+                { "title": "New Super Mario Bros U", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "new-super-mario-bros-u.jpeg" },
+                { "title": "Super Mario 3D World", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "super-mario-3d-world.jpeg" },
+                { "title": "Captain Toad: Treasure Tracker", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "capitan-toad.jpeg" },
+                { "title": "Yoshi's Woolly World", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "yoshis-woolly-world.webp" },
+                { "title": "Pikmin 3", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "pikmin-3.jpeg" },
+                { "title": "Kirby and the Rainbow Course", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "kirby-and-the-rainbow-curse.jpg" },
+                { "title": "Mass Effect 3: Special Edition", "release_year": 200, "release_date": "", "developer": "", "publisher": "", "price": 0, "format": "Physical", "cover": "mass_effect_3.jpg" },
             ],
             "Nintendo Switch": [
                 { "title": "Dragon Quest I, II, III", "release_year": 2025, "developer": "Square Enix", "publisher": "	Square Enix", "price": 35, "format": "Physical" },
@@ -223,6 +229,12 @@
                 { "title": "Lord of the Rings: The Two Towers", "release_year": 2002, "release_date": "10-22-2002", "developer": "Stormfront Studios", "publisher": "Electronic Arts", "price": 0, "format": "Physical", "cover": "lotr-two-towers.jpg" },
                 { "title": "Metroid Prime 2: Echoes", "release_year": 2004, "release_date": "11-15-2004", "developer": "Retro Studios", "publisher": "Nintendo", "price": 0, "format": "Physical", "cover": "metroid-prime-echoes.jpg" },
                 { "title": "Metroid Prime", "release_year": 2002, "release_date": "11-18-2002", "developer": "Retro Studios", "publisher": "Nintendo", "price": 0, "format": "Physical", "cover": "metroid-prime.jpg" }
+            ],
+            "DS": [
+                { "title": "SpongeBob SquarePants: The Creature from the Krusty Krab", "release_year": 2006, "developer": "Blitz Games", "publisher": "THQ", "price": 10, "format": "Physical", "cover": "SpongeBob_SquarePants_Creature_of_the_Krusty_Krab.jpg" },
+                { "title": "Phoenix Wright: Ace Attorney", "release_year": 2005, "developer": "Capcom", "publisher": "Capcom", "price": 10, "format": "Physical", "cover": "phoenix_wright.jpg" },
+                { "title": "Professor Layton and the Unwound Future", "release_year": 2010, "developer": "Level-5", "publisher": "Nintendo", "price": 25, "format": "Physical", "cover": "Professor_Layton_and_the_Unwound_Future.png" },
+                { "title": "Brain Age 2: More Training in Minutes a Day!", "release_year": 2007, "developer": "Nintendo", "publisher": "Nintendo", "price": 10, "format": "Physical", "cover": "Brain_Age_2_.png" }
             ],
             "3DS": [
                 { "title": "Animal Crossing: Happy Home Designer", "release_year": 2017, "developer": "Nintendo", "publisher": "", "price": 5, "format": "Physical" },
